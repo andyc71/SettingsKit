@@ -16,7 +16,7 @@ public struct SettingsKitStepper: SettingsKitSetting {
     
     public enum Value {
         case double(_: Double)
-        case userDefaults(key: String)
+        case userDefaults(key: String, defaultValue: Double = 0)
     }
     
     @available(*, unavailable, renamed: "init(title:value:min:max:)")

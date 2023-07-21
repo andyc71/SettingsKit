@@ -14,7 +14,8 @@ public struct SettingsKitToggle: SettingsKitSetting {
     
     public enum Value {
         case bool(_: Bool)
-        case userDefaults(key: String)
+        case userDefaults(key: String, defaultValue: Bool = true)
+        case callback( ()->Bool, (Bool)->() )
     }
     
     @available(*, unavailable, renamed: "init(title:value:)")

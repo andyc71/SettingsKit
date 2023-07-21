@@ -24,7 +24,7 @@ public struct SettingsKitLabel: SettingsKitSetting {
         self.value = nil
     }
     
-    public init(title: String, value: Value) {
+    public init(title: String, value: Value?) {
         self.title = title
         self.children = nil
         self.value = value

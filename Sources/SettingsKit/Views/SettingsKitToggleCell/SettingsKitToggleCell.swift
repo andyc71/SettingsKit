@@ -67,8 +67,13 @@ class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
             switch value {
             case .bool(let bool):
                 return bool
-            case .userDefaults(let key):
-                return UserDefaults.standard.bool(forKey: key)
+            case .userDefaults(let key, let defaultValue):
+                guard let value = UserDefaults.standard.object(forKey: key) as? Bool else {
+                    return defaultValue
+                }
+                return value
+            case .callback(let getter, _):
+                return getter()
             }
         }
         
@@ -76,8 +81,15 @@ class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
     }
     
     @objc private func switchValueChanged(_ sender: UISwitch) {
-        if case let .userDefaults(key) = setting.value {
-            UserDefaults.standard.set(sender.isOn, forKey: key)
+        if let value = setting.value {
+            switch value {
+            case .bool(_):
+                break
+            case .userDefaults(let key, _):
+                UserDefaults.standard.set(sender.isOn, forKey: key)
+            case .callback(_, let setter):
+                setter(sender.isOn)
+            }
         }
     }
 }

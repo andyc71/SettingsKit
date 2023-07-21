@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class SettingsKitViewController: UISplitViewController, UISplitViewControllerDelegate, SettingsKitTableViewControllerDelegate {
+open class SettingsKitViewController: UISplitViewController, UISplitViewControllerDelegate, SettingsKitTableViewControllerDelegate {
     override public var navigationItem: UINavigationItem {
         return settingsViewController.navigationItem
     }
@@ -38,7 +38,7 @@ public class SettingsKitViewController: UISplitViewController, UISplitViewContro
         setupSplitViewController()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -69,12 +69,11 @@ public class SettingsKitViewController: UISplitViewController, UISplitViewContro
     }
     
     func showDetailViewController(_ viewController: UIViewController) {
-        print("Here")
-        //TODO:
         if #available(iOS 14.0, *) {
             setViewController(nil, for: .secondary)
             setViewController(viewController, for: .secondary)
         } else {
+            //TODO:
             // Fallback on earlier versions
         }
     }

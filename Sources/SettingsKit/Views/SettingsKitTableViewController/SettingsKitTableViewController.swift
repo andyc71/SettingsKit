@@ -32,6 +32,7 @@ public class SettingsKitTableViewController: UITableViewController {
         tableView.register(SettingsKitToggleCell.self, forCellReuseIdentifier: "SettingsKitToggleCell")
         tableView.register(SettingsKitStepperCell.self, forCellReuseIdentifier: "SettingsKitStepperCell")
         tableView.register(SettingsKitTextFieldCell.self, forCellReuseIdentifier: "SettingsKitTextFieldCell")
+        tableView.register(SettingsKitButtonCell.self, forCellReuseIdentifier: "SettingsKitButtonCell")
     }
     
     private func setupTableViewController() {

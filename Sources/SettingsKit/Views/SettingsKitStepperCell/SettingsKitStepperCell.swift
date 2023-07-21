@@ -71,8 +71,11 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
             switch value {
             case .double(let double):
                 return double
-            case .userDefaults(let key):
-                return UserDefaults.standard.double(forKey: key)
+            case .userDefaults(let key, let defaultValue):
+                guard let value = UserDefaults.standard.object(forKey: key) as? Double else {
+                    return defaultValue
+                }
+                return value
             }
         }
         
@@ -82,7 +85,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
     @objc private func stepperValueChanged(_ sender: UIStepper) {
         detailLabel.text = String(Int(sender.value))
         
-        if case let .userDefaults(key) = setting.value {
+        if case let .userDefaults(key, _) = setting.value {
             UserDefaults.standard.set(sender.value, forKey: key)
         }
     }

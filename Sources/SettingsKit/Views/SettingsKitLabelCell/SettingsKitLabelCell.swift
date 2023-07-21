@@ -45,7 +45,10 @@ class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
         
         setupCell()
         setupTitleLabel()
-        setupDetailLabel()
+        
+        if stringValue() == nil {
+            setupDetailLabel()
+        }
     }
     
     private func setupCell() {
@@ -56,15 +59,26 @@ class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
     private func setupTitleLabel() {
         titleLabel = UILabel()
         titleLabel.text = setting.title
+                
         titleLabel.font = .systemFont(ofSize: 17)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(titleLabel)
         
-        NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
-        ])
+        if stringValue() == nil {
+            titleLabel.numberOfLines = 5
+            NSLayoutConstraint.activate([
+                titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+                titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -22)
+            ])
+        }
+        else {
+            NSLayoutConstraint.activate([
+                titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            ])
+        }
     }
     
     private func setupDetailLabel() {
