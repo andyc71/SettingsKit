@@ -7,6 +7,25 @@
 
 import UIKit
 
+extension UIColor {
+    static var labelBackPort: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor.label
+        } else {
+            return UIColor.black
+        }
+    }
+    
+    static var secondaryLabelBackPort: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor.secondaryLabel
+        } else {
+            return UIColor.darkGray
+        }
+    }
+
+}
+
 class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
     private var setting: SettingsKitLabel!
     
@@ -44,13 +63,13 @@ class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
     
     private func setupDetailLabel() {
         detailLabel = UILabel()
-        detailLabel.textColor = .secondaryLabel
+        detailLabel.textColor = .secondaryLabelBackPort
         detailLabel.font = .systemFont(ofSize: 17)
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.text = stringValue()
@@ -59,7 +78,7 @@ class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
         
         NSLayoutConstraint.activate([
             detailLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            detailLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22),
+            detailLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -22),
         ])
     }
     

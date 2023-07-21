@@ -44,7 +44,7 @@ class SettingsKitTextFieldCell: UITableViewCell, UITextFieldDelegate, SettingsKi
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
     
@@ -54,7 +54,7 @@ class SettingsKitTextFieldCell: UITableViewCell, UITextFieldDelegate, SettingsKi
         textView.text = stringValue()
         textView.returnKeyType = .done
         textView.textAlignment = .right
-        textView.textColor = .secondaryLabel
+        textView.textColor = .secondaryLabelBackPort
         textView.keyboardType = setting.type
         textView.font = .systemFont(ofSize: 17)
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,7 @@ class SettingsKitTextFieldCell: UITableViewCell, UITextFieldDelegate, SettingsKi
         
         NSLayoutConstraint.activate([
             textView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22),
+            textView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -22),
             textView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 16)
         ])
     }

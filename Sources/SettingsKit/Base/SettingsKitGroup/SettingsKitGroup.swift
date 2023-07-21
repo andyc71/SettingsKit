@@ -27,13 +27,28 @@ public struct SettingsKitGroup: SettingsKitSetting {
     }
 }
 
+extension UIImage {
+    open class SymbolConfigurationBackport {
+        var pointSize: CGFloat
+        public init(pointSize: CGFloat) {
+            self.pointSize = pointSize
+        }
+        
+        @available(iOS 13.0, *)
+        var symbolConfiguration: UIImage.SymbolConfiguration {
+            return UIImage.SymbolConfiguration(pointSize: pointSize)
+        }
+        
+    }
+}
+
 public extension SettingsKitGroup {
     struct Icon {
         var symbol: UIImage?
-        var config: UIImage.SymbolConfiguration
+        var config: UIImage.SymbolConfigurationBackport
         var colour: UIColor
         
-        public init(symbol: UIImage? = nil, config: UIImage.SymbolConfiguration = .init(pointSize: 21), colour: UIColor) {
+        public init(symbol: UIImage? = nil, config: UIImage.SymbolConfigurationBackport = .init(pointSize: 21), colour: UIColor) {
             self.symbol = symbol
             self.config = config
             self.colour = colour
@@ -44,12 +59,16 @@ public extension SettingsKitGroup {
             iconView.clipsToBounds = true
             iconView.layer.cornerRadius = 6.5
             iconView.backgroundColor = colour
-            iconView.layer.cornerCurve = .continuous
+//            if #available(iOS 13.0, *) {
+//                iconView.layer.cornerCurve = .continuous
+//            }
             iconView.translatesAutoresizingMaskIntoConstraints = false
             
             let iconImageView = UIImageView()
             iconImageView.tintColor = .white
-            iconImageView.image = symbol?.withConfiguration(config)
+            if #available(iOS 13.0, *) {
+                iconImageView.image = symbol?.withConfiguration(config.symbolConfiguration)
+            }
             iconImageView.translatesAutoresizingMaskIntoConstraints = false
             
             iconView.addSubview(iconImageView)

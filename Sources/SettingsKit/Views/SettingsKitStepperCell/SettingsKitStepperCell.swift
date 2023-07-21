@@ -46,7 +46,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
     
@@ -62,7 +62,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
         
         NSLayoutConstraint.activate([
             stepperView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stepperView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22)
+            stepperView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -22)
         ])
     }
     
@@ -89,7 +89,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
     
     private func setupDetailLabel() {
         detailLabel = UILabel()
-        detailLabel.textColor = .secondaryLabel
+        detailLabel.textColor = .secondaryLabelBackPort
         detailLabel.font = .systemFont(ofSize: 17)
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.text = String(Int(doubleValue()))

@@ -13,14 +13,15 @@ public class SettingsKitTableViewController: UITableViewController {
     
     let isRoot: Bool
     
-    public init(sections: [SettingsKitSection], style: UITableView.Style = .insetGrouped, isRoot: Bool = false) {
+    //AC: Changed .insetGrouped to .grouped for IOS12 compatibility
+    public init(sections: [SettingsKitSection], style: UITableView.Style = .grouped, isRoot: Bool = false) {
         self.isRoot = isRoot
         super.init(style: style)
         registerTableViewCellsForReuse()
         setupTableViewController()
         self.sections = sections
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

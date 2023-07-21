@@ -44,7 +44,7 @@ class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
     
@@ -58,7 +58,7 @@ class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
         
         NSLayoutConstraint.activate([
             switchView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            switchView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22)
+            switchView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -22)
         ])
     }
     

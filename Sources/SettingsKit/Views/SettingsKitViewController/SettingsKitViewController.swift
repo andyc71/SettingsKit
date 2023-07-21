@@ -30,7 +30,11 @@ public class SettingsKitViewController: UISplitViewController, UISplitViewContro
     
     public init(sections: [SettingsKitSection]) {
         self.sections = sections
-        super.init(style: .doubleColumn)
+        if #available(iOS 14.0, *) {
+            super.init(style: .doubleColumn)
+        } else {
+            super.init()
+        }
         setupSplitViewController()
     }
     
@@ -44,8 +48,13 @@ public class SettingsKitViewController: UISplitViewController, UISplitViewContro
         
         mainViewController = UINavigationController(rootViewController: settingsViewController)
         
-        setViewController(mainViewController, for: .primary)
-        setViewController(UITableViewController(style: .insetGrouped), for: .secondary)
+        if #available(iOS 14.0, *) {
+            setViewController(mainViewController, for: .primary)
+            setViewController(UITableViewController(style: .insetGrouped), for: .secondary)
+        } else {
+            self.viewControllers = [mainViewController, UITableViewController(style: .grouped)]
+        }
+        
         presentsWithGesture = false
         delegate = self
     }
@@ -54,12 +63,19 @@ public class SettingsKitViewController: UISplitViewController, UISplitViewContro
         super.viewDidLoad()
     }
     
+    @available(iOS 14.0, *)
     public func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
         return .primary
     }
     
     func showDetailViewController(_ viewController: UIViewController) {
-        setViewController(nil, for: .secondary)
-        setViewController(viewController, for: .secondary)
+        print("Here")
+        //TODO:
+        if #available(iOS 14.0, *) {
+            setViewController(nil, for: .secondary)
+            setViewController(viewController, for: .secondary)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }

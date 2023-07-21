@@ -53,7 +53,14 @@ class SettingsKitGroupCell: UITableViewCell, SettingsKitCell {
             
             NSLayoutConstraint.activate([
                 iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+                //AC: Changed to use safeAreaLayoutGuide because when we
+                //have a table style of groupedInset that seemed to be
+                //accounted for automatically, but with the other table
+                //styles then the left part of the label appears off-screen
+                //in the left splitter panel. Might need to apply this to
+                //other cell styles if they are to appear in the left
+                //splitter pane.
+                iconView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20)
             ])
         }
         
@@ -83,7 +90,7 @@ class SettingsKitGroupCell: UITableViewCell, SettingsKitCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if UIDevice.current.userInterfaceIdiom == .pad {
-            titleLabel.textColor = selected ? .white : .label
+            titleLabel.textColor = selected ? .white : .labelBackPort
         }
     }
 }
