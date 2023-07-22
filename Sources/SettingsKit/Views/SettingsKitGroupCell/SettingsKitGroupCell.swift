@@ -74,7 +74,7 @@ class SettingsKitGroupCell: UITableViewCell, SettingsKitCell {
         addSubview(titleLabel)
         
         var iconViewLeadingAnchor: NSLayoutXAxisAnchor {
-            return setting.icon != nil ? iconView.trailingAnchor : leadingAnchor
+            return setting.icon != nil ? iconView.trailingAnchor : safeAreaLayoutGuide.leadingAnchor
         }
         
         var iconViewLeadingConstant: CGFloat {
