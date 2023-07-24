@@ -8,6 +8,7 @@
 import UIKit
 
 open class SettingsKitViewController: UISplitViewController, UISplitViewControllerDelegate, SettingsKitTableViewControllerDelegate {
+    
     override public var navigationItem: UINavigationItem {
         return settingsViewController.navigationItem
     }
@@ -33,7 +34,7 @@ open class SettingsKitViewController: UISplitViewController, UISplitViewControll
         if #available(iOS 14.0, *) {
             super.init(style: .doubleColumn)
         } else {
-            super.init()
+            super.init(nibName: nil, bundle: nil)
         }
         setupSplitViewController()
     }
@@ -48,18 +49,31 @@ open class SettingsKitViewController: UISplitViewController, UISplitViewControll
         
         mainViewController = UINavigationController(rootViewController: settingsViewController)
         
+        
+        let detailViewController: UIViewController
+        if let setting = sections.first?.settings.first {
+            detailViewController = SettingsKitTableViewController(sections: setting.children ?? [])
+            detailViewController.navigationItem.title = setting.title
+            //detailViewController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            //detailViewController.navigationItem.leftItemsSupplementBackButton = true
+        }
+        else {
+            detailViewController = UITableViewController(style: .grouped)
+        }
+
         if #available(iOS 14.0, *) {
             setViewController(mainViewController, for: .primary)
-            setViewController(UITableViewController(style: .insetGrouped), for: .secondary)
+            setViewController(detailViewController, for: .secondary)
         } else {
-            self.viewControllers = [mainViewController, UITableViewController(style: .grouped)]
+            self.viewControllers = [mainViewController, UINavigationController(rootViewController: detailViewController)]
+            self.preferredDisplayMode = .oneBesideSecondary
         }
         
-        presentsWithGesture = false
+        //presentsWithGesture = false
         delegate = self
     }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
     
@@ -73,8 +87,8 @@ open class SettingsKitViewController: UISplitViewController, UISplitViewControll
             setViewController(nil, for: .secondary)
             setViewController(viewController, for: .secondary)
         } else {
-            //TODO:
-            // Fallback on earlier versions
+            let detailNavigationController = UINavigationController(rootViewController: viewController)
+            super.showDetailViewController(detailNavigationController, sender: nil)
         }
     }
 }
